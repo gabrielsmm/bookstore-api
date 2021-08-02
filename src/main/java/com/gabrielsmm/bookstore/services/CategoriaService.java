@@ -25,4 +25,9 @@ public class CategoriaService {
 		return this.categoriaRepository.findAll();
 	}
 	
+	public Categoria create(Categoria obj) {
+		obj.setId(null); // id criado no banco
+		return this.categoriaRepository.save(obj);
+	}
+	
 }
