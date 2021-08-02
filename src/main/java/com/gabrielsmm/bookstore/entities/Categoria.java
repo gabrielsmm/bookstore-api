@@ -23,7 +23,7 @@ public class Categoria implements Serializable {
 	private String nome;
 	private String descricao;
 	
-	@JsonIgnoreProperties("categoria")
+//	@JsonIgnoreProperties("categoria")
 	@OneToMany(mappedBy = "categoria") //Uma categoria para vários livros
 	private List<Livro> livros = new ArrayList<>();
 	
