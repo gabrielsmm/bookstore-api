@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.gabrielsmm.bookstore.dtos.LivroDTO;
 import com.gabrielsmm.bookstore.entities.Livro;
 import com.gabrielsmm.bookstore.repositories.LivroRepository;
 import com.gabrielsmm.bookstore.services.exceptions.ObjectNotFoundException;
@@ -36,14 +35,12 @@ public class LivroService {
 		return this.livroRepository.save(obj);
 	}
 	
-	public Livro update(Integer id, LivroDTO objDto) {
-		Livro obj = this.findById(id);
-//		obj.setNomeAutor(objDto.getNomeAutor());
-//		obj.setTexto(objDto.getTexto());
-		obj.setTitulo(objDto.getTitulo());
-		return this.livroRepository.save(obj);
+	public Livro update(Integer id, Livro obj) {
+		Livro newObj = this.findById(id);
+		this.updateData(newObj, obj);
+		return this.livroRepository.save(newObj);
 	}
-	
+
 	public void delete(Integer id) {
 		this.findById(id);
 		try {
@@ -51,5 +48,11 @@ public class LivroService {
 		} catch(DataIntegrityViolationException e) {
 			throw new com.gabrielsmm.bookstore.services.exceptions.DataIntegrityViolationException("Livro não pode ser deletado!");
 		}	
+	}
+	
+	private void updateData(Livro newObj, Livro obj) {
+		newObj.setTitulo(obj.getTitulo());
+		newObj.setNomeAutor(obj.getNomeAutor());
+		newObj.setTexto(obj.getTexto());
 	}
 }
