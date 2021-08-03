@@ -45,12 +45,8 @@ public class LivroService {
 	}
 
 	public void delete(Integer id) {
-		this.findById(id);
-		try {
-			this.livroRepository.deleteById(id);
-		} catch(DataIntegrityViolationException e) {
-			throw new com.gabrielsmm.bookstore.services.exceptions.DataIntegrityViolationException("Livro não pode ser deletado!");
-		}	
+		Livro obj = this.findById(id);
+		this.livroRepository.delete(obj);
 	}
 	
 	private void updateData(Livro newObj, Livro obj) {

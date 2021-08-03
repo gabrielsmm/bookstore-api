@@ -66,6 +66,4 @@ public class LivroResource {
 		this.livroService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	
 }
