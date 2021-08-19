@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.gabrielsmm.bookstore.entities.Categoria;
 import com.gabrielsmm.bookstore.entities.Livro;
+import com.gabrielsmm.bookstore.entities.Usuario;
 import com.gabrielsmm.bookstore.repositories.CategoriaRepository;
 import com.gabrielsmm.bookstore.repositories.LivroRepository;
+import com.gabrielsmm.bookstore.repositories.UsuarioRepository;
+import com.gabrielsmm.bookstore.util.Util;
 
 @Service
 public class DBService {
@@ -17,6 +20,9 @@ public class DBService {
 	
 	@Autowired
 	private LivroRepository livroRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	public void instanciaBaseDeDados() {
 		Categoria cat1 = new Categoria(null, "Informática", "Livros de TI");
@@ -34,5 +40,11 @@ public class DBService {
 				
 		this.categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		this.livroRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));
+		
+		Usuario user1 = new Usuario(null, "gabrielsmm", "gabrielsmm@gmail.com", Util.md5("123gabriel"));
+		Usuario user2 = new Usuario(null, "pedroserra", "pedroserra@gmail.com", Util.md5("123pedro"));
+		Usuario user3 = new Usuario(null, "jorgelucas", "jorgelucas@gmail.com", Util.md5("123gabriel"));
+		Usuario user4 = new Usuario(null, "1", "admin@gmail.com", Util.md5("1"));
+		this.usuarioRepository.saveAll(Arrays.asList(user1, user2, user3, user4));
 	}
 }
